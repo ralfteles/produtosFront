@@ -1,0 +1,57 @@
+<div class="row mb-4" *ngIf="produtos.length > 0">
+  <h3 class="col text-center">Produtos</h3>
+</div>
+
+
+<table class="table table-hover" *ngIf="produtos.length > 0">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Produto</th>
+      <th scope="col">Valor</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let produto of produtos">
+    <tr>
+      <th>#</th>
+      <td>{{produto.nome}}</td>
+      <td>{{produto.valor | currency : 'R$'}}</td>
+      <td>
+        <button class="btn btn-primary col-2" (click)="openModal(produto)">Detalhes</button>
+        <!-- <button class="btn btn-primary col-2 ml-1" routerLink="/editProduto/{{produto.id}}"></button> -->
+        <a [routerLink]="['/editProduto', produto.produtoId]"  class="btn btn-primary col-2 ml-1">Editar</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<ng-template #detalheModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Detalhes do produto</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="form-group col-md-4 d-flex flex-column">
+        <label><strong>Imagem</strong></label>
+        <span style="color: green;"><strong>{{produto.imagem}}</strong></span>
+      </div>
+
+      <div class="form-group col-md-4 d-flex flex-column">
+        <label><strong>Nome</strong></label>
+        <span>{{produto.nome}}</span>
+      </div>
+
+      <div class="form-group col-md-4 d-flex flex-column">
+        <label><strong>Valor</strong></label>
+        <span>{{produto.valor | currency : 'R$'}}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
